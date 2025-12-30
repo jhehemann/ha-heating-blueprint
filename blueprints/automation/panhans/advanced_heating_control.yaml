@@ -2810,7 +2810,7 @@ variables:
     {% elif is_force_eco_temperature %}
       {{ false }}
     {% elif is_away %}
-      {{ true }}
+      {{ is_anybody_home }}
     {% elif not is_scheduler_defined and not is_presence_sensor_defined %}
       {{ is_anybody_home_or_proximity }}
     {% else %}
