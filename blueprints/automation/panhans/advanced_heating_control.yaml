@@ -2409,7 +2409,11 @@ variables:
   # away
   is_away: >
     {% if is_person_defined and not is_anybody_home_or_proximity %}
-      {{ (is_scheduler_away_mode and state_scheduler) or (is_presence_away_mode and state_presence_scheduler and not state_presence) }}
+      {{ presence_ignor_people and (
+          (is_scheduler_away_mode and state_scheduler)
+          or
+          (is_presence_away_mode and state_presence_scheduler and not state_presence)
+        ) }}
     {% elif presence_ignor_people and is_presence_away_mode %}
       {{ state_presence_scheduler and not state_presence }}
     {% elif is_presence_away_mode and is_person_defined and is_anybody_home_or_proximity and not presence_ignor_people %}
@@ -2810,7 +2814,7 @@ variables:
     {% elif is_force_eco_temperature %}
       {{ false }}
     {% elif is_away %}
-      {{ is_anybody_home }}
+      {{ true }}
     {% elif not is_scheduler_defined and not is_presence_sensor_defined %}
       {{ is_anybody_home_or_proximity }}
     {% else %}
